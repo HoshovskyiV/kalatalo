@@ -130,7 +130,7 @@ if(active==='auto'){
 if(!detectedAxis){var abx=Math.abs(ax),aby=Math.abs(ay),abz=Math.abs(az),mx=Math.max(abx,aby,abz);if(mx>DIR_CHANGE_MIN_VAL){if(abx===mx)detectedAxis='x';else if(aby===mx)detectedAxis='y';else detectedAxis='z'}}
 active=detectedAxis;
 }
-var val=0;if(active==='x')val=ax;else if(active==='y')val=ay;else if(active==='z')val=az;
+var val=0;if(active==='x')val=Math.sign(ax)*Math.sqrt(ax*ax+az*az);else if(active==='y')val=Math.sign(ay)*Math.sqrt(ay*ay+az*az);else if(active==='z')val=az;
 targetAngle=Math.max(-1,Math.min(1,val/12));
 document.getElementById('debugBar').textContent='x:'+ax.toFixed(1)+' y:'+ay.toFixed(1)+' z:'+az.toFixed(1)+' | '+(active||'?')+':'+val.toFixed(1)+(hasCleanAccel?' [ok]':' [cal]');
 if(!isRunning||!active)return;
@@ -202,5 +202,6 @@ window.addEventListener('resize',resizeCanvas);resizeCanvas();drawViz();
 </script>
 </body>
 </html>
+
 
 
