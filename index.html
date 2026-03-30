@@ -64,6 +64,8 @@ vid2.src='data:video/mp4;base64,'+VIDEO_B64_2;
 
 vid1.addEventListener('loadeddata',function(){vid1.currentTime=0;vid1.pause()});
 vid2.addEventListener('loadeddata',function(){vid2.currentTime=0;vid2.pause()});
+vid1.addEventListener('ended',function(){vid1.pause();vid2.currentTime=0;vid2.pause();showVid(2)});
+vid2.addEventListener('ended',function(){vid2.pause();vid1.currentTime=0;vid1.pause();showVid(1)});
 
 function showVid(n){
 if(n===1){vid1.style.opacity='1';vid2.style.opacity='0'}
@@ -184,3 +186,4 @@ showVid(1);
 </script>
 </body>
 </html>
+
