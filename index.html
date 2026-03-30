@@ -12,9 +12,8 @@ body{min-height:100dvh}
 .poster{position:fixed;inset:0;background:#000 center/cover no-repeat;z-index:1}
 .vc{position:fixed;inset:0;z-index:2;display:none}
 .vc video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.start-btn{position:fixed;bottom:calc(10% + 60px);left:50%;transform:translateX(-50%);z-index:10;display:inline-flex;flex-direction:column;align-items:center;width:fit-content;max-width:88vw;box-sizing:border-box;padding:24px 28px;border:none;background:rgba(255,255,255,0.92);color:#000;border-radius:24px;font-family:system-ui,sans-serif;-webkit-text-size-adjust:100%;text-size-adjust:100%;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 4px 20px rgba(0,0,0,0.3);text-decoration:none}
-.start-btn .line{display:block;white-space:nowrap;line-height:1.2}
-.start-btn:active{transform:translateX(-50%) scale(0.95);background:#fff}
+.start-btn{position:fixed;bottom:calc(10% + 60px);left:50%;transform:translateX(-50%);z-index:10;border:none;background:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.start-btn:active{transform:translateX(-50%) scale(0.95)}
 .hidden{display:none!important}
 </style>
 </head>
@@ -24,7 +23,16 @@ body{min-height:100dvh}
 <img id="frameImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
 </div>
 <h1 class="main-title" id="mainTitle" style="position:fixed;top:8vh;left:50%;transform:translateX(-50%);z-index:10;font-family:system-ui,sans-serif;font-size:46px;font-weight:800;color:#000;text-transform:uppercase;letter-spacing:4px;margin:0">КАЛАТАЛО</h1>
-<a class="start-btn" id="startBtn" href="#" role="button"><span class="line" style="font-size:44px;font-weight:700">Натисніть тут і почніть калатати</span><span class="line" style="font-size:30px;opacity:0.7;margin-top:8px">(махати телефоном в сторони)</span><span class="line" style="font-size:24px;color:#e53935;opacity:0.85;margin-top:10px;white-space:normal;line-height:1.4">ℹ️ Якщо після цього буде якесь попередження, то це запит дозволу на використання датчику руху, тицьніть і дайте його, а потім калатайте на здоровля</span></a>
+<button class="start-btn" id="startBtn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 220" width="88vw" style="max-width:88vw;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.3))">
+<rect width="380" height="220" rx="24" fill="rgba(255,255,255,0.92)"/>
+<text x="190" y="52" text-anchor="middle" font-family="system-ui,sans-serif" font-size="32" font-weight="700" fill="#000">Натисніть тут і почніть</text>
+<text x="190" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="32" font-weight="700" fill="#000">калатати</text>
+<text x="190" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" fill="rgba(0,0,0,0.6)">(махати телефоном в сторони)</text>
+<text x="190" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#e53935">ℹ️ Якщо після цього буде попередження,</text>
+<text x="190" y="163" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#e53935">то це запит дозволу на датчик руху,</text>
+<text x="190" y="181" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#e53935">тицьніть і дайте його,</text>
+<text x="190" y="199" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#e53935">а потім калатайте на здоровля</text>
+</svg></button>
 <script>
 
 
@@ -150,7 +158,7 @@ phaseStartTime=performance.now();currentPhaseDuration=NORMAL_PHASE_MS;
 gravityInited=false;calSamples=0;calSumX=0;calSumY=0;calSumZ=0;
 }
 
-document.getElementById('startBtn').addEventListener('click',function(e){e.preventDefault();activate()});
+document.getElementById('startBtn').addEventListener('click',activate);
 window.addEventListener('devicemotion',handleMotion,true);
 window.addEventListener('deviceorientation',function(ev){if(!isRunning||ev.gamma===null)return;var g=ev.gamma;var d=g>2?1:g<-2?-1:0;if(d!==0&&gammaDir!==0&&d!==gammaDir){var now=performance.now();var dur=now-gammaPhaseStart;if(dur>60){if(d===1)playSound1();else playSound2();gammaPhaseStart=now}}if(d!==0)gammaDir=d;var fi;if(g<-15)fi=0;else if(g<-5)fi=1;else if(g<5)fi=2;else if(g<15)fi=3;else fi=4;showFrame(FRAMES_LR[fi])},true);
 
