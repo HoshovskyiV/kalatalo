@@ -158,7 +158,7 @@ if(!audioCtx)await initAudio();
 if(audioCtx.state==='suspended')await audioCtx.resume();
 }catch(e){btn.textContent='Помилка, спробуйте ще';return}
 if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){
-try{var p=await DeviceMotionEvent.requestPermission();if(p!=='granted'){btn.textContent='Дозвіл не надано, спробуйте ще';return}}catch(e){btn.textContent='Дозвіл не надано, спробуйте ще';return}
+try{var p=await Promise.race([DeviceMotionEvent.requestPermission(),new Promise(function(_,rej){setTimeout(function(){rej('timeout')},5000)})]);if(p!=='granted'){btn.textContent='Дозвіл не надано, спробуйте ще';return}}catch(e){btn.textContent='Дозвіл не надано, спробуйте ще';return}
 }
 frameImg.src=FRAME_B64_1;
 
