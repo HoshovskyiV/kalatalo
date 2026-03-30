@@ -65,8 +65,8 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 <div class="timeline-track" id="timelineTrack"></div>
 </div>
 <div class="axis-row">
-<div class="axis-btn active" id="axisAuto" onclick="setAxis('auto')">Auto</div>
-<div class="axis-btn" id="axisX" onclick="setAxis('x')">X</div>
+<div class="axis-btn" id="axisAuto" onclick="setAxis('auto')">Auto</div>
+<div class="axis-btn active" id="axisX" onclick="setAxis('x')">X</div>
 <div class="axis-btn" id="axisY" onclick="setAxis('y')">Y</div>
 <div class="axis-btn" id="axisZ" onclick="setAxis('z')">Z</div>
 </div>
@@ -92,7 +92,7 @@ var timelineClips=[];
 var canvas=document.getElementById('vizCanvas');
 var ctx2d=canvas.getContext('2d');
 var pendulumAngle=0,targetAngle=0;
-var chosenAxis='auto',detectedAxis=null;
+var chosenAxis='x',detectedAxis=null;
 var lastDirection=0,phaseStartTime=0,halfPhaseCount=0;
 var gravityX=0,gravityY=0,gravityZ=0,gravityInited=false;
 var calSamples=0,calSumX=0,calSumY=0,calSumZ=0,CAL_COUNT=30,hasCleanAccel=false;
@@ -202,3 +202,5 @@ window.addEventListener('resize',resizeCanvas);resizeCanvas();drawViz();
 </script>
 </body>
 </html>
+
+
