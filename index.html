@@ -146,16 +146,16 @@ function resizeCanvas(){var r=canvas.parentElement.getBoundingClientRect();var d
 function drawViz(){
 var d=window.devicePixelRatio||1;var w=canvas.width/d,h=canvas.height/d;ctx2d.clearRect(0,0,w,h);
 pendulumAngle+=(targetAngle-pendulumAngle)*0.15;
-var cx=w/2,py=15,al=h*0.65,an=pendulumAngle*(Math.PI/3);
-var bx=cx+Math.sin(an)*al,by=py+Math.cos(an)*al;
+var cx=w/2,pivotY=h-12,al=h*0.75,an=pendulumAngle*(Math.PI/4);
+var bx=cx+Math.sin(an)*al,by=pivotY-Math.cos(an)*al;
 ctx2d.strokeStyle='#1e1e2e';ctx2d.lineWidth=1;
-for(var i=-3;i<=3;i++){var a=i*(Math.PI/9);ctx2d.beginPath();ctx2d.moveTo(cx,py);ctx2d.lineTo(cx+Math.sin(a)*al,py+Math.cos(a)*al);ctx2d.stroke()}
-ctx2d.beginPath();ctx2d.moveTo(cx,py);ctx2d.lineTo(bx,by);ctx2d.strokeStyle='#3a3a50';ctx2d.lineWidth=2;ctx2d.stroke();
+for(var i=-4;i<=4;i++){var a=i*(Math.PI/14);ctx2d.beginPath();ctx2d.moveTo(cx,pivotY);ctx2d.lineTo(cx+Math.sin(a)*al,pivotY-Math.cos(a)*al);ctx2d.stroke()}
+ctx2d.beginPath();ctx2d.moveTo(cx,pivotY);ctx2d.lineTo(bx,by);ctx2d.strokeStyle='#3a3a50';ctx2d.lineWidth=2;ctx2d.stroke();
 var sp=Math.abs(targetAngle-pendulumAngle),gs=8+sp*20,ir=pendulumAngle>0,mc=ir?'#00e5ff':'#ff6b35';
 var bg=ctx2d.createRadialGradient(bx,by,0,bx,by,gs);bg.addColorStop(0,mc);bg.addColorStop(0.4,mc+'80');bg.addColorStop(1,mc+'00');
 ctx2d.fillStyle=bg;ctx2d.beginPath();ctx2d.arc(bx,by,gs,0,Math.PI*2);ctx2d.fill();
 ctx2d.beginPath();ctx2d.arc(bx,by,6,0,Math.PI*2);ctx2d.fillStyle=mc;ctx2d.fill();
-ctx2d.beginPath();ctx2d.arc(cx,py,3,0,Math.PI*2);ctx2d.fillStyle='#3a3a50';ctx2d.fill();
+ctx2d.beginPath();ctx2d.arc(cx,pivotY,4,0,Math.PI*2);ctx2d.fillStyle='#3a3a50';ctx2d.fill();
 requestAnimationFrame(drawViz);
 }
 
@@ -189,6 +189,7 @@ window.addEventListener('resize',resizeCanvas);resizeCanvas();drawViz();
 </script>
 </body>
 </html>
+
 
 
 
