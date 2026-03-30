@@ -23,15 +23,11 @@ body{min-height:100dvh}
 <img id="frameImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
 </div>
 <h1 class="main-title" id="mainTitle" style="position:fixed;top:8vh;left:50%;transform:translateX(-50%);z-index:10;font-family:system-ui,sans-serif;font-size:46px;font-weight:800;color:#000;text-transform:uppercase;letter-spacing:4px;margin:0">КАЛАТАЛО</h1>
-<button class="start-btn" id="startBtn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 220" width="88vw" style="max-width:88vw;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.3))">
-<rect width="380" height="220" rx="24" fill="rgba(255,255,255,0.92)"/>
-<text x="190" y="52" text-anchor="middle" font-family="system-ui,sans-serif" font-size="32" font-weight="700" fill="#000">Натисніть тут і почніть</text>
-<text x="190" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="32" font-weight="700" fill="#000">калатати</text>
-<text x="190" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" fill="rgba(0,0,0,0.6)">(махати телефоном в сторони)</text>
-<text x="190" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#e53935">ℹ️ Якщо після цього буде попередження,</text>
-<text x="190" y="163" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#e53935">то це запит дозволу на датчик руху,</text>
-<text x="190" y="181" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#e53935">тицьніть і дайте його,</text>
-<text x="190" y="199" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#e53935">а потім калатайте на здоровля</text>
+<button class="start-btn" id="startBtn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 160" width="88vw" style="max-width:88vw;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.3))">
+<rect width="380" height="160" rx="24" fill="rgba(255,255,255,0.92)"/>
+<text x="190" y="45" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#000">Дати дозвіл і почати</text>
+<text x="190" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#000">калатати</text>
+<text x="190" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="rgba(0,0,0,0.5)">(хитайте телефоном в сторони)</text>
 </svg></button>
 <script>
 
@@ -142,13 +138,13 @@ if(dir!==0)lastDirection=dir;
 
 async function activate(){
 var btn=document.getElementById('startBtn');
-btn.textContent='Зачекайте...';
+btn.innerHTML='<span style="font-size:24px;color:#e53935;font-weight:600">Зачекайте...</span>';
 try{
 if(!audioCtx)await initAudio();
 if(audioCtx.state==='suspended')await audioCtx.resume();
-}catch(e){btn.textContent='Помилка, спробуйте ще';return}
+}catch(e){btn.innerHTML='<span style="font-size:24px;color:#e53935;font-weight:600">Надати дозвіл на датчик руху</span>';return}
 if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){
-try{var p=await Promise.race([DeviceMotionEvent.requestPermission(),new Promise(function(_,rej){setTimeout(function(){rej('timeout')},5000)})]);if(p!=='granted'){btn.textContent='Дозвіл не надано, спробуйте ще';return}}catch(e){btn.textContent='Дозвіл не надано, спробуйте ще';return}
+try{var p=await Promise.race([DeviceMotionEvent.requestPermission(),new Promise(function(_,rej){setTimeout(function(){rej('timeout')},5000)})]);if(p!=='granted'){btn.innerHTML='<span style="font-size:24px;color:#e53935;font-weight:600">Надати дозвіл на датчик руху</span>';return}}catch(e){btn.innerHTML='<span style="font-size:24px;color:#e53935;font-weight:600">Надати дозвіл на датчик руху</span>';return}
 }
 frameImg.src=FRAME_B64_1;
 
